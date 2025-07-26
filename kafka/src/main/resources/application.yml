@@ -3,3 +3,23 @@ spring:
     name: kafka
   kafka:
     bootstrap-servers: 127.0.0.1:9092
+
+  datasource:
+    url: jdbc:mariadb://localhost:3306/kafka_test?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=Asia/Seoul
+    username: root
+    password: 1234qwer!
+    driver-class-name: org.mariadb.jdbc.Driver
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        #      show_sql: true
+        format_sql: true
+        default_batch_fetch_size: 100
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+logging.level:
+  org.hibernate.SQL: debug
+  org.hibernate.type: trace #스프링 부트 2.x, hibernate5

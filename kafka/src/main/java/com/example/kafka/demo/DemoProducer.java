@@ -8,18 +8,19 @@ import org.springframework.stereotype.Service;
 
 import java.util.concurrent.CompletableFuture;
 
+import static com.example.kafka.config.KafkaConfig.TOPIC_DEMO;
+
 @Service
 @RequiredArgsConstructor
 public class DemoProducer {
-    private static final String TOPIC_NAME = "demo-topic";
     private final KafkaTemplate<String, KafkaMessage> kafkaMessageKafkaTemplate;
 
     public void send(KafkaMessage message) {
-        kafkaMessageKafkaTemplate.send(TOPIC_NAME, message.getId(), message);
+        kafkaMessageKafkaTemplate.send(TOPIC_DEMO, message.getId(), message);
     }
 
     public void sendWithCallback(KafkaMessage message) {
-        CompletableFuture<SendResult<String, KafkaMessage>> future = kafkaMessageKafkaTemplate.send(TOPIC_NAME, message.getId(), message);
+        CompletableFuture<SendResult<String, KafkaMessage>> future = kafkaMessageKafkaTemplate.send(TOPIC_DEMO, message.getId(), message);
         future.whenComplete((result, ex) -> {
             if (ex != null) {
                 System.err.println("Error sending message: " + ex.getMessage());

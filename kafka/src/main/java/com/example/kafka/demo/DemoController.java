@@ -2,7 +2,7 @@ package com.example.kafka.demo;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class DemoController {
     private final DemoService demoService;
 
-    @GetMapping("/demo")
-    public String demoEndpoint(Long id) throws Exception {
+    @GetMapping("/demo/{id}")
+    public String demoEndpoint(@PathVariable Long id) throws Exception {
         return demoService.getDemoMessage(id);
     }
 }

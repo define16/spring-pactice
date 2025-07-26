@@ -8,13 +8,17 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Entity
+
+
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Entity
 public class DemoEntity {
+
     @Id
     @GeneratedValue
     private Long id;
+
     private String headline;
     private String content;
 
