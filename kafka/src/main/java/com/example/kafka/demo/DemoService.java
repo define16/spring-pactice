@@ -1,6 +1,7 @@
 package com.example.kafka.demo;
 
 import com.example.kafka.demo.dto.CreateDemoDto;
+import com.example.kafka.demo.dto.UpdateDemoDto;
 import com.example.kafka.model.DemoCreatedMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,5 +30,17 @@ public class DemoService {
                 savedEntity.getHeadline()
         ));
         return savedEntity.getId();
+    }
+
+    @Transactional
+    public Long updateDemo(Long id, UpdateDemoDto demoDto) {
+        DemoEntity demoEntity = demoRepository.findById(id).orElseThrow(() -> new NoSuchElementException("DemoEntity not found with id: " + id));
+        demoEntity.setHeadline(demoDto.getHeadline());
+        demoEntity.setContent(demoDto.getContent());
+        demoProducer.send(new DemoCreatedMessage(
+                demoEntity.getId(),
+                demoEntity.getHeadline()
+        ));
+        return demoEntity.getId();
     }
 }

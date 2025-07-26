@@ -1,6 +1,7 @@
 package com.example.kafka.demo;
 
 import com.example.kafka.demo.dto.CreateDemoDto;
+import com.example.kafka.demo.dto.UpdateDemoDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,5 +19,10 @@ public class DemoController {
     @PostMapping("/demo")
     public Long createDemo(@RequestBody CreateDemoDto createDemoDto) throws Exception {
         return demoService.createDemo(createDemoDto);
+    }
+
+    @PutMapping("/demo/{id}")
+    public Long updateDemo(@PathVariable Long id, @RequestBody UpdateDemoDto updateDemo) {
+        return demoService.updateDemo(id, updateDemo);
     }
 }

@@ -1,0 +1,9 @@
+extend type Subscription {
+  boardSubscription(boardId: Long!): PushMessage
+}
+
+type PushMessage {
+  id: Long!
+  headline: String!
+  savedAt: DateTime!
+}

@@ -1,0 +1,18 @@
+scalar DateTime
+scalar Long
+
+schema {
+    query: Query
+    mutation: Mutation
+    subscription: Subscription
+}
+
+type Query {
+    _empty: String
+    _version: String
+}
+type Mutation {
+    _empty: String
+    _version: String
+}
+type Subscription {}
