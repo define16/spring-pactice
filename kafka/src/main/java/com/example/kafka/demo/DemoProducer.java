@@ -1,7 +1,9 @@
 package com.example.kafka.demo;
 
 import com.example.kafka.model.KafkaMessage;
+import com.example.kafka.utils.JsonUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Service;
@@ -10,22 +12,24 @@ import java.util.concurrent.CompletableFuture;
 
 import static com.example.kafka.config.KafkaConfig.TOPIC_DEMO;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class DemoProducer {
-    private final KafkaTemplate<String, KafkaMessage> kafkaMessageKafkaTemplate;
+    private final KafkaTemplate<String, String> kafkaMessageKafkaTemplate;
 
     public void send(KafkaMessage message) {
-        kafkaMessageKafkaTemplate.send(TOPIC_DEMO, message.getId(), message);
+        String msg = JsonUtil.toJson(message);
+        this.sendWithCallback(msg);
     }
 
-    public void sendWithCallback(KafkaMessage message) {
-        CompletableFuture<SendResult<String, KafkaMessage>> future = kafkaMessageKafkaTemplate.send(TOPIC_DEMO, message.getId(), message);
+    private void sendWithCallback(String message) {
+        CompletableFuture<SendResult<String, String>> future = kafkaMessageKafkaTemplate.send(TOPIC_DEMO, message);
         future.whenComplete((result, ex) -> {
             if (ex != null) {
-                System.err.println("Error sending message: " + ex.getMessage());
+                log.error("Error sending message: {}", ex.getMessage());
             } else {
-                System.out.println("Message sent successfully: " + result.getProducerRecord().value());
+                log.error("Message sent successfully: {}", result.getProducerRecord().value());
             }
         });
     }

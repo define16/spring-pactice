@@ -1,13 +1,11 @@
-package com.example.kafka.model;
+package com.example.kafka.demo.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 @AllArgsConstructor
-public class KafkaMessage {
-    private String id;
+public class CreateDemoDto {
     private String headline;
+    private String content;
 }
