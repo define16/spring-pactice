@@ -1,11 +1,10 @@
 package com.example.kafka.demo;
 
 import com.example.kafka.demo.dto.CreateDemoDto;
-import com.example.kafka.model.KafkaMessage;
+import com.example.kafka.model.DemoCreatedMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.NoSuchElementException;
 
@@ -25,8 +24,8 @@ public class DemoService {
     public Long createDemo(CreateDemoDto demoDto) {
         DemoEntity demoEntity = new DemoEntity(demoDto.getHeadline(), demoDto.getContent());
         DemoEntity savedEntity = demoRepository.save(demoEntity);
-        demoProducer.send(new KafkaMessage(
-                String.valueOf(savedEntity.getId()),
+        demoProducer.send(new DemoCreatedMessage(
+                savedEntity.getId(),
                 savedEntity.getHeadline()
         ));
         return savedEntity.getId();

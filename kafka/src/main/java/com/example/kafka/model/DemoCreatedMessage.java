@@ -2,12 +2,14 @@ package com.example.kafka.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @AllArgsConstructor
-public class KafkaMessage {
-    private String id;
+@NoArgsConstructor
+public class DemoCreatedMessage {
+    private Long id;
     private String headline;
 }

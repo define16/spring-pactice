@@ -1,6 +1,6 @@
 package com.example.kafka.demo;
 
-import com.example.kafka.model.KafkaMessage;
+import com.example.kafka.model.DemoCreatedMessage;
 import com.example.kafka.utils.JsonUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,7 @@ import static com.example.kafka.config.KafkaConfig.TOPIC_DEMO;
 public class DemoProducer {
     private final KafkaTemplate<String, String> kafkaMessageKafkaTemplate;
 
-    public void send(KafkaMessage message) {
+    public void send(DemoCreatedMessage message) {
         String msg = JsonUtil.toJson(message);
         this.sendWithCallback(msg);
     }
