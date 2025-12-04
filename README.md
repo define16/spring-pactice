@@ -1,3 +1,3 @@
-# Spring_Pactice
+# Spring_Practice
 Learn and Understand Spring Framework
 a
